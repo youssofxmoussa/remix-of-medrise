@@ -296,11 +296,11 @@ function Me() {
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function MiniStat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="clay flex flex-col items-center justify-center gap-0.5 rounded-2xl py-3.5">
-      <span className="text-[1.125rem] font-bold leading-none">{value}</span>
-      <span className="text-[0.6875rem] font-medium text-muted-foreground">{label}</span>
+    <div className="flex flex-col items-center justify-center gap-0.5 rounded-2xl bg-primary-foreground/15 px-2 py-3">
+      <span className="text-[1.25rem] font-black leading-none text-primary-foreground">{value}</span>
+      <span className="text-[0.6875rem] font-medium text-primary-foreground/70">{label}</span>
     </div>
   );
 }
