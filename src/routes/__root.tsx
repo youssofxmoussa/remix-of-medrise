@@ -4,9 +4,11 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { AnimatePresence, motion } from "motion/react";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
@@ -174,6 +176,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
     applyAppearance(readAppearance());
@@ -193,7 +196,18 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.div
+          key={pathname}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ type: "spring", stiffness: 320, damping: 32 }}
+          className="min-h-[100dvh]"
+        >
+          <Outlet />
+        </motion.div>
+      </AnimatePresence>
     </QueryClientProvider>
   );
 }
