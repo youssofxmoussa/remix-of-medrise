@@ -18,15 +18,25 @@ export interface ActivityState {
   days: Record<string, number>;
   /** YYYY-MM-DD -> seconds of real learning (video, PDF, quiz) that day */
   focus: Record<string, number>;
+  /** Daily study goal in minutes, chosen by the user. */
+  goalMinutes: number;
 }
 
-/** Seconds of real learning needed to earn a day of streak. */
-export const STREAK_GOAL_SECONDS = 300;
+/** Selectable daily goals, in minutes. */
+export const GOAL_OPTIONS = [15, 30, 45, 60] as const;
+export const DEFAULT_GOAL_MINUTES = 30;
+/** Legacy key kept so an already-picked goal is not lost. */
+const LEGACY_GOAL_KEY = "biovision_daily_goal";
 
 export const ACTIVITY_KEY = "biovision_activity";
 export const ACTIVITY_EVENT = "biovision:activity";
 
-const emptyState: ActivityState = { subjects: {}, days: {}, focus: {} };
+const emptyState: ActivityState = {
+  subjects: {},
+  days: {},
+  focus: {},
+  goalMinutes: DEFAULT_GOAL_MINUTES,
+};
 
 export const emptySubject: SubjectActivity = {
   watchedSeconds: 0,
@@ -45,17 +55,31 @@ function dayKey(d: Date = new Date()) {
   ).padStart(2, "0")}`;
 }
 
+function legacyGoal(): number | undefined {
+  try {
+    const raw = Number(localStorage.getItem(LEGACY_GOAL_KEY));
+    return raw > 0 ? raw : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 export function readActivity(): ActivityState {
   if (typeof window === "undefined") return emptyState;
   try {
     const raw = localStorage.getItem(ACTIVITY_KEY);
-    if (!raw) return emptyState;
-    const parsed = JSON.parse(raw) as Partial<ActivityState>;
-    return { subjects: parsed.subjects ?? {}, days: parsed.days ?? {}, focus: parsed.focus ?? {} };
+    const parsed = raw ? (JSON.parse(raw) as Partial<ActivityState>) : {};
+    return {
+      subjects: parsed.subjects ?? {},
+      days: parsed.days ?? {},
+      focus: parsed.focus ?? {},
+      goalMinutes: parsed.goalMinutes ?? legacyGoal() ?? DEFAULT_GOAL_MINUTES,
+    };
   } catch {
     return emptyState;
   }
 }
+
 
 function writeActivity(state: ActivityState) {
   try {
