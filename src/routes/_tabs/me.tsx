@@ -18,6 +18,7 @@ import { ConfirmSheet } from "@/components/ios/ConfirmSheet";
 
 import { courses } from "@/lib/courses";
 import { clearDemoSession } from "@/lib/demo-session";
+import avatarOssama from "@/assets/avatar-ossama.png";
 
 export const Route = createFileRoute("/_tabs/me")({
   head: () => ({
