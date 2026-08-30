@@ -4,10 +4,10 @@ import { Clock, Flame, Play, BookOpen, Zap } from "lucide-react";
 import { spring } from "@/components/ios/press";
 import { courses } from "@/lib/courses";
 import { StreakFlame } from "@/components/ios/StreakFlame";
+import { TodayGoalCard } from "@/components/ios/GoalCard";
 import {
   earnedDay,
-  STREAK_GOAL_SECONDS,
-  todayFocusSeconds,
+  minutesLeftToday,
   formatMinutes,
   getSubject,
   streakDays,
