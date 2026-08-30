@@ -72,6 +72,12 @@ function Learning() {
     <div className="pb-32 pt-6">
       <h1 className="text-large-title">Learning</h1>
 
+      <div className="mt-5">
+        <TodayGoalCard continueTo={upNext.id} />
+      </div>
+
+
+
       <div className="mt-5 grid grid-cols-2 gap-3">
         {[
           { label: "Day streak", value: String(streak), icon: Flame },
