@@ -68,8 +68,8 @@ function HomePage() {
           <img
             src="/brand/biovision-logo.png"
             alt="BioVision logo — DNA helix rising into an arrow beside the BioVision wordmark"
-            width={881}
-            height={359}
+            width={3200}
+            height={2369}
             className="h-14 w-auto object-contain"
           />
           <h1 className="mt-6 text-[2rem] font-black leading-[1.1] tracking-tight sm:text-[2.5rem]">

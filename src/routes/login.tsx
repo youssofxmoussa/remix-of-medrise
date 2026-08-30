@@ -68,8 +68,8 @@ function SignIn() {
             <img
               src="/brand/biovision-logo.png"
               alt="BioVision logo"
-              width={881}
-              height={359}
+              width={3200}
+              height={2369}
               className="relative h-[clamp(4.5rem,13vh,6.5rem)] w-full object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.18)]"
             />
           </div>

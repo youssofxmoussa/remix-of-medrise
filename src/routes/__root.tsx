@@ -133,7 +133,7 @@ export const Route =
         { rel: "stylesheet", href: appCss },
 
         // Favicons / app icons
-        { rel: "icon", href: siteIcon, type: "image/png", sizes: "256x256" },
+        { rel: "icon", href: siteIcon, type: "image/png", sizes: "512x512" },
         { rel: "shortcut icon", href: siteIcon, type: "image/png" },
         { rel: "apple-touch-icon", href: siteIcon, sizes: "180x180" },
         { rel: "mask-icon", href: siteIcon, color: SITE.themeColor },
