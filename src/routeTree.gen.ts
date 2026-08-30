@@ -11,8 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TabsRouteImport } from './routes/_tabs'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as FaqRouteImport } from './routes/faq'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as TabsAppearanceRouteImport } from './routes/_tabs/appearance'
 import { Route as TabsCoursesRouteImport } from './routes/_tabs/courses'
@@ -31,16 +29,6 @@ const IndexRoute = IndexRouteImport.update({
 } as any)
 const TabsRoute = TabsRouteImport.update({
   id: '/_tabs',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FaqRoute = FaqRouteImport.update({
-  id: '/faq',
-  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -96,8 +84,6 @@ const ApiPublicCoursePdfRoute = ApiPublicCoursePdfRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
   '/appearance': typeof TabsAppearanceRoute
   '/courses': typeof TabsCoursesRoute
@@ -111,8 +97,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
   '/appearance': typeof TabsAppearanceRoute
   '/courses': typeof TabsCoursesRoute
@@ -128,8 +112,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_tabs': typeof TabsRouteWithChildren
-  '/about': typeof AboutRoute
-  '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
   '/_tabs/appearance': typeof TabsAppearanceRoute
   '/_tabs/courses': typeof TabsCoursesRoute
@@ -145,8 +127,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about'
-    | '/faq'
     | '/login'
     | '/appearance'
     | '/courses'
@@ -160,8 +140,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/about'
-    | '/faq'
     | '/login'
     | '/appearance'
     | '/courses'
@@ -176,8 +154,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_tabs'
-    | '/about'
-    | '/faq'
     | '/login'
     | '/_tabs/appearance'
     | '/_tabs/courses'
@@ -193,8 +169,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   TabsRoute: typeof TabsRouteWithChildren
-  AboutRoute: typeof AboutRoute
-  FaqRoute: typeof FaqRoute
   LoginRoute: typeof LoginRoute
   ApiPublicCoursePdfRoute: typeof ApiPublicCoursePdfRoute
 }
@@ -213,20 +187,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof TabsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/faq': {
-      id: '/faq'
-      path: '/faq'
-      fullPath: '/faq'
-      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -329,8 +289,6 @@ const TabsRouteWithChildren = TabsRoute._addFileChildren(TabsRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   TabsRoute: TabsRouteWithChildren,
-  AboutRoute: AboutRoute,
-  FaqRoute: FaqRoute,
   LoginRoute: LoginRoute,
   ApiPublicCoursePdfRoute: ApiPublicCoursePdfRoute,
 }
