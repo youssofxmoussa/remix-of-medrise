@@ -109,7 +109,7 @@ function Me() {
               aria-hidden="true"
               className="absolute inset-0 rounded-full bg-primary-foreground/25 blur-xl"
             />
-            <div className="relative grid size-20 place-items-end overflow-hidden rounded-full bg-primary-foreground/15 ring-2 ring-primary-foreground/30">
+            <div className="relative grid size-20 items-end justify-items-center overflow-hidden rounded-full bg-primary-foreground/15 ring-2 ring-primary-foreground/30">
               <img
                 src={avatarOssama}
                 alt="Ossama's 3D avatar"
