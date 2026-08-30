@@ -18,6 +18,7 @@ import { ConfirmSheet } from "@/components/ios/ConfirmSheet";
 
 import { courses } from "@/lib/courses";
 import { clearDemoSession } from "@/lib/demo-session";
+import avatarOssama from "@/assets/avatar-ossama.png";
 
 export const Route = createFileRoute("/_tabs/me")({
   head: () => ({
@@ -96,21 +97,63 @@ function Me() {
     <div className="pb-32 pt-6">
       <h1 className="text-large-title">Me</h1>
 
-      <section className="material mt-5 flex items-center gap-4 rounded-3xl p-5 shadow-soft">
-        <div className="grid size-14 shrink-0 place-items-center rounded-full bg-primary text-xl font-semibold text-primary-foreground">
-          Q
-        </div>
-        <div className="min-w-0">
-          <p className="truncate text-[1.0625rem] font-semibold">Qutayba</p>
-          <p className="truncate text-[0.9375rem] text-muted-foreground">Premium · since 2025</p>
-        </div>
-      </section>
+      <motion.section
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={spring}
+        className="relative mt-5 overflow-hidden rounded-[2rem] bg-primary p-5 shadow-soft"
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-16 -top-20 size-56 rounded-full bg-primary-foreground/10 blur-2xl"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-24 -left-16 size-48 rounded-full bg-primary-foreground/10 blur-2xl"
+        />
 
-      <div className="mt-4 grid grid-cols-3 gap-2">
-        <Stat label="Subjects" value={String(courses.length)} />
-        <Stat label="Saved" value={String(savedCount)} />
-        <Stat label="Daily goal" value={`${goal}m`} />
-      </div>
+        <div className="relative flex items-center gap-4">
+          <motion.div
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="relative shrink-0"
+          >
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 rounded-full bg-primary-foreground/25 blur-xl"
+            />
+            <div className="relative grid size-20 place-items-end overflow-hidden rounded-full bg-primary-foreground/15 ring-2 ring-primary-foreground/30">
+              <img
+                src={avatarOssama}
+                alt="Ossama's 3D student avatar"
+                width={816}
+                height={816}
+                loading="lazy"
+                className="size-[5.5rem] -translate-y-0 object-contain object-bottom drop-shadow-[0_6px_12px_rgba(0,0,0,0.25)]"
+              />
+            </div>
+          </motion.div>
+
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[1.375rem] font-black leading-tight tracking-tight text-primary-foreground">
+              Ossama
+            </p>
+            <p className="mt-0.5 truncate text-[0.875rem] text-primary-foreground/70">
+              First-year science · BioVision
+            </p>
+            <span className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-primary-foreground/15 px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-widest text-primary-foreground">
+              <Flame className="size-3.5" />
+              Premium
+            </span>
+          </div>
+        </div>
+
+        <div className="relative mt-5 grid grid-cols-3 gap-2">
+          <MiniStat label="Subjects" value={String(courses.length)} />
+          <MiniStat label="Saved" value={String(savedCount)} />
+          <MiniStat label="Goal" value={`${goal}m`} />
+        </div>
+      </motion.section>
 
       <h2 className="mt-6 px-2 text-[0.75rem] font-bold uppercase tracking-widest text-muted-foreground">
         Daily study goal
@@ -253,11 +296,11 @@ function Me() {
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function MiniStat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="clay flex flex-col items-center justify-center gap-0.5 rounded-2xl py-3.5">
-      <span className="text-[1.125rem] font-bold leading-none">{value}</span>
-      <span className="text-[0.6875rem] font-medium text-muted-foreground">{label}</span>
+    <div className="flex flex-col items-center justify-center gap-0.5 rounded-2xl bg-primary-foreground/15 px-2 py-3">
+      <span className="text-[1.25rem] font-black leading-none text-primary-foreground">{value}</span>
+      <span className="text-[0.6875rem] font-medium text-primary-foreground/70">{label}</span>
     </div>
   );
 }
