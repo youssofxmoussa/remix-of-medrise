@@ -4,10 +4,10 @@ import { Clock, Flame, Play, BookOpen, Zap } from "lucide-react";
 import { spring } from "@/components/ios/press";
 import { courses } from "@/lib/courses";
 import { StreakFlame } from "@/components/ios/StreakFlame";
+import { TodayGoalCard } from "@/components/ios/GoalCard";
 import {
   earnedDay,
-  STREAK_GOAL_SECONDS,
-  todayFocusSeconds,
+  minutesLeftToday,
   formatMinutes,
   getSubject,
   streakDays,
@@ -38,10 +38,8 @@ function Learning() {
 
   const streak = streakDays(activity);
   const minutes = weekMinutes(activity);
-  const todayGoalLeft = Math.max(
-    0,
-    Math.ceil((STREAK_GOAL_SECONDS - todayFocusSeconds(activity)) / 60),
-  );
+  const todayGoalLeft = minutesLeftToday(activity);
+
 
   const rows = courses
     .map((c) => {
@@ -73,6 +71,12 @@ function Learning() {
   return (
     <div className="pb-32 pt-6">
       <h1 className="text-large-title">Learning</h1>
+
+      <div className="mt-5">
+        <TodayGoalCard continueTo={upNext.id} />
+      </div>
+
+
 
       <div className="mt-5 grid grid-cols-2 gap-3">
         {[

@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { ChevronLeft, Flame, Clock3, TrendingUp, CalendarDays, Zap } from "lucide-react";
 import { spring } from "@/components/ios/press";
 import { StreakFlame } from "@/components/ios/StreakFlame";
-import { STREAK_GOAL_SECONDS } from "@/lib/activity";
+
 import arrowImg from "@/assets/scribble-arrow.png";
 
 
@@ -25,9 +25,7 @@ export const Route = createFileRoute("/_tabs/streak")({
   component: StreakPage,
 });
 
-const goalMinutes = Math.round(STREAK_GOAL_SECONDS / 60);
-
-const rules = [
+const buildRules = (goalMinutes: number) => [
   {
     icon: Clock3,
     title: "What actually counts",
@@ -36,10 +34,11 @@ const rules = [
   },
   {
     icon: Zap,
-    title: goalMinutes + " minutes earns the day",
-    body: "Once you reach " + goalMinutes + " minutes of learning time in a single day, that day's flame lights up. Time is counted only while the lesson is open and visible.",
+    title: "Your daily goal earns the day",
+    body: `Your goal is currently ${goalMinutes} minutes. Reach it in a single day and that day's flame lights up. You can change it any time from the Me tab.`,
     note: goalMinutes + " min then flame lit",
   },
+
   {
     icon: TrendingUp,
     title: "How the streak grows",
