@@ -70,7 +70,7 @@ function SignIn() {
               alt="BioVision logo"
               width={3200}
               height={2369}
-              className="relative h-[clamp(4.5rem,13vh,6.5rem)] w-full object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.18)]"
+              className="relative h-[clamp(7.5rem,22vh,11rem)] w-full object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.18)]"
             />
           </div>
           <h1 className="mt-[clamp(0.5rem,2vh,1rem)] text-[clamp(1.75rem,5.5vw,2.125rem)] leading-tight font-bold tracking-tight">
