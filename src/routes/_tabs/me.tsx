@@ -125,7 +125,7 @@ function Me() {
                 width={584}
                 height={844}
                 loading="lazy"
-                className="h-[6.5rem] w-auto translate-y-1 object-contain object-bottom drop-shadow-[0_6px_12px_rgba(0,0,0,0.25)]"
+                className="h-[5.75rem] w-auto object-contain object-bottom drop-shadow-[0_6px_12px_rgba(0,0,0,0.25)]"
               />
             </div>
           </div>
