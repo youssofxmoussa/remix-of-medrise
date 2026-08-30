@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { spring } from "@/components/ios/press";
 import { ConfirmSheet } from "@/components/ios/ConfirmSheet";
+import { DailyGoalCard } from "@/components/ios/GoalCard";
+import { useActivity } from "@/lib/activity";
 
 
 import { courses } from "@/lib/courses";
@@ -37,18 +39,17 @@ export const Route = createFileRoute("/_tabs/me")({
   component: Me,
 });
 
-const GOAL_KEY = "biovision_daily_goal";
 const SAVED_KEY = "biovision_saved_videos";
-const GOALS = [15, 30, 45, 60] as const;
 
 function Me() {
   const navigate = useNavigate();
+  const activity = useActivity();
   const [savedIds, setSavedIds] = useState<string[]>([]);
-  const [goal, setGoal] = useState<number>(30);
   const [expanded, setExpanded] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [cleared, setCleared] = useState(false);
 
+  const goal = activity.goalMinutes;
   const savedCount = savedIds.length;
   const savedCourses = savedIds
     .map((id) => courses.find((c) => c.id.toLowerCase() === id.toLowerCase()))
@@ -58,21 +59,11 @@ function Me() {
     try {
       const saved = JSON.parse(localStorage.getItem(SAVED_KEY) || "[]") as string[];
       setSavedIds(saved);
-      const storedGoal = Number(localStorage.getItem(GOAL_KEY));
-      if (storedGoal) setGoal(storedGoal);
     } catch {
       /* ignore */
     }
   }, []);
 
-  const pickGoal = (value: number) => {
-    setGoal(value);
-    try {
-      localStorage.setItem(GOAL_KEY, String(value));
-    } catch {
-      /* ignore */
-    }
-  };
 
   const clearLocalData = () => {
     try {
@@ -118,7 +109,7 @@ function Me() {
               aria-hidden="true"
               className="absolute inset-0 rounded-full bg-primary-foreground/25 blur-xl"
             />
-            <div className="relative grid size-20 place-items-end overflow-hidden rounded-full bg-primary-foreground/15 ring-2 ring-primary-foreground/30">
+            <div className="relative grid size-20 items-end justify-items-center overflow-hidden rounded-full bg-primary-foreground/15 ring-2 ring-primary-foreground/30">
               <img
                 src={avatarOssama}
                 alt="Ossama's 3D avatar"
@@ -151,24 +142,10 @@ function Me() {
         </div>
       </motion.section>
 
-      <h2 className="mt-6 px-2 text-[0.75rem] font-bold uppercase tracking-widest text-muted-foreground">
-        Daily study goal
-      </h2>
-      <div className="clay mt-2 grid grid-cols-4 gap-2 rounded-3xl p-2">
-        {GOALS.map((value) => (
-          <button
-            key={value}
-            onClick={() => pickGoal(value)}
-            className={`rounded-2xl py-3 text-[0.875rem] font-bold transition-all active:scale-95 ${
-              goal === value
-                ? "bg-primary text-primary-foreground shadow-soft"
-                : "bg-secondary/50 text-foreground"
-            }`}
-          >
-            {value}m
-          </button>
-        ))}
+      <div className="mt-6">
+        <DailyGoalCard />
       </div>
+
 
       <h2 className="mt-6 px-2 text-[0.75rem] font-bold uppercase tracking-widest text-muted-foreground">
         Preferences

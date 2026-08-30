@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { ChevronLeft, Flame, Clock3, TrendingUp, CalendarDays, Zap } from "lucide-react";
 import { spring } from "@/components/ios/press";
 import { StreakFlame } from "@/components/ios/StreakFlame";
+import { useActivity } from "@/lib/activity";
 
 import arrowImg from "@/assets/scribble-arrow.png";
 
@@ -81,6 +82,9 @@ function ScribbleArrow({ className, flip }: { className?: string; flip?: boolean
 
 
 function StreakPage() {
+  const activity = useActivity();
+  const rules = buildRules(activity.goalMinutes);
+
   return (
     <div className="w-full pb-24">
       <header className="glass-flat sticky top-3 z-40 mt-3 flex items-center gap-2 rounded-2xl px-2 py-2">
