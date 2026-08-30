@@ -41,7 +41,7 @@ export function DailyGoalCard() {
 }
 
 /** Compact today's-goal card with a continue action — used on Learning. */
-export function TodayGoalCard({ continueTo }: { continueTo?: string }) {
+export function TodayGoalCard({ continueTo }: { continueTo?: string | undefined }) {
   const activity = useActivity();
   return <GoalCardBody activity={activity} continueTo={continueTo} />;
 }
@@ -52,8 +52,8 @@ function GoalCardBody({
   continueTo,
 }: {
   activity: ActivityState;
-  picker?: boolean;
-  continueTo?: string;
+  picker?: boolean | undefined;
+  continueTo?: string | undefined;
 }) {
   const goal = activity.goalMinutes;
   const done = todayFocusMinutes(activity);
