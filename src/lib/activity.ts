@@ -124,15 +124,73 @@ export function clearActivity() {
   if (typeof window !== "undefined") window.dispatchEvent(new CustomEvent(ACTIVITY_EVENT));
 }
 
-/** Consecutive days (ending today or yesterday) with any recorded activity. */
+/** The user's daily goal, in seconds of real learning. */
+export function goalSeconds(state: ActivityState): number {
+  return Math.max(1, state.goalMinutes) * 60;
+}
+
+/** Persist a new daily goal (minutes). */
+export function setGoalMinutes(minutes: number) {
+  if (typeof window === "undefined" || minutes <= 0) return;
+  const state = readActivity();
+  writeActivity({ ...state, goalMinutes: minutes });
+  try {
+    localStorage.setItem(LEGACY_GOAL_KEY, String(minutes));
+  } catch {
+    /* ignore */
+  }
+}
+
+/** A day is earned once its real learning time reaches the daily goal. */
 export function earnedDay(state: ActivityState, d: Date = new Date()): boolean {
-  return (state.focus[dayKey(d)] ?? 0) >= STREAK_GOAL_SECONDS;
+  return (state.focus[dayKey(d)] ?? 0) >= goalSeconds(state);
 }
 
 /** Seconds of real learning recorded today. */
 export function todayFocusSeconds(state: ActivityState): number {
   return Math.round(state.focus[dayKey()] ?? 0);
 }
+
+/** Minutes of real learning recorded today (rounded down). */
+export function todayFocusMinutes(state: ActivityState): number {
+  return Math.floor(todayFocusSeconds(state) / 60);
+}
+
+/** Today's goal completion, 0-100. */
+export function todayGoalPercent(state: ActivityState): number {
+  return Math.min(100, Math.round((todayFocusSeconds(state) / goalSeconds(state)) * 100));
+}
+
+/** Whole minutes still needed to earn today. */
+export function minutesLeftToday(state: ActivityState): number {
+  return Math.max(0, Math.ceil((goalSeconds(state) - todayFocusSeconds(state)) / 60));
+}
+
+/**
+ * Average daily learning minutes over the last 14 days that had any activity.
+ * Returns null until there are at least 5 such days.
+ */
+export function averageDailyMinutes(state: ActivityState): number | null {
+  const values: number[] = [];
+  const cursor = new Date();
+  for (let i = 0; i < 14; i++) {
+    const secs = state.focus[dayKey(cursor)] ?? 0;
+    if (secs > 0) values.push(secs / 60);
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  if (values.length < 5) return null;
+  return Math.round(values.reduce((s, v) => s + v, 0) / values.length);
+}
+
+/** Closest selectable goal to the user's recent average. */
+export function suggestedGoal(state: ActivityState): number | null {
+  const avg = averageDailyMinutes(state);
+  if (avg === null) return null;
+  return GOAL_OPTIONS.reduce((best, o) =>
+    Math.abs(o - avg) < Math.abs(best - avg) ? o : best,
+  );
+}
+
 
 export function streakDays(state: ActivityState): number {
   let streak = 0;
