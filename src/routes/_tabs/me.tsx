@@ -151,24 +151,10 @@ function Me() {
         </div>
       </motion.section>
 
-      <h2 className="mt-6 px-2 text-[0.75rem] font-bold uppercase tracking-widest text-muted-foreground">
-        Daily study goal
-      </h2>
-      <div className="clay mt-2 grid grid-cols-4 gap-2 rounded-3xl p-2">
-        {GOALS.map((value) => (
-          <button
-            key={value}
-            onClick={() => pickGoal(value)}
-            className={`rounded-2xl py-3 text-[0.875rem] font-bold transition-all active:scale-95 ${
-              goal === value
-                ? "bg-primary text-primary-foreground shadow-soft"
-                : "bg-secondary/50 text-foreground"
-            }`}
-          >
-            {value}m
-          </button>
-        ))}
+      <div className="mt-6">
+        <DailyGoalCard />
       </div>
+
 
       <h2 className="mt-6 px-2 text-[0.75rem] font-bold uppercase tracking-widest text-muted-foreground">
         Preferences
