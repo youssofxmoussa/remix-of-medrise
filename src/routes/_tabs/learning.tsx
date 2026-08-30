@@ -38,10 +38,8 @@ function Learning() {
 
   const streak = streakDays(activity);
   const minutes = weekMinutes(activity);
-  const todayGoalLeft = Math.max(
-    0,
-    Math.ceil((STREAK_GOAL_SECONDS - todayFocusSeconds(activity)) / 60),
-  );
+  const todayGoalLeft = minutesLeftToday(activity);
+
 
   const rows = courses
     .map((c) => {
