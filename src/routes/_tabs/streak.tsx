@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { ChevronLeft, Flame, Clock3, TrendingUp, CalendarDays, Zap } from "lucide-react";
 import { spring } from "@/components/ios/press";
 import { StreakFlame } from "@/components/ios/StreakFlame";
-import { STREAK_GOAL_SECONDS } from "@/lib/activity";
+
 import arrowImg from "@/assets/scribble-arrow.png";
 
 
