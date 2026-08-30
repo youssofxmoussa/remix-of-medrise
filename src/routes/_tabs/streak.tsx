@@ -81,6 +81,9 @@ function ScribbleArrow({ className, flip }: { className?: string; flip?: boolean
 
 
 function StreakPage() {
+  const activity = useActivity();
+  const rules = buildRules(activity.goalMinutes);
+
   return (
     <div className="w-full pb-24">
       <header className="glass-flat sticky top-3 z-40 mt-3 flex items-center gap-2 rounded-2xl px-2 py-2">
