@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { spring } from "@/components/ios/press";
 import { ConfirmSheet } from "@/components/ios/ConfirmSheet";
+import { DailyGoalCard } from "@/components/ios/GoalCard";
+import { useActivity } from "@/lib/activity";
 
 
 import { courses } from "@/lib/courses";
