@@ -113,11 +113,7 @@ function Me() {
         />
 
         <div className="relative flex items-center gap-4">
-          <motion.div
-            animate={{ y: [0, -6, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="relative shrink-0"
-          >
+          <div className="relative shrink-0">
             <div
               aria-hidden="true"
               className="absolute inset-0 rounded-full bg-primary-foreground/25 blur-xl"
@@ -125,14 +121,14 @@ function Me() {
             <div className="relative grid size-20 place-items-end overflow-hidden rounded-full bg-primary-foreground/15 ring-2 ring-primary-foreground/30">
               <img
                 src={avatarOssama}
-                alt="Ossama's 3D student avatar"
-                width={816}
-                height={816}
+                alt="Ossama's 3D avatar"
+                width={584}
+                height={844}
                 loading="lazy"
-                className="size-[5.5rem] -translate-y-0 object-contain object-bottom drop-shadow-[0_6px_12px_rgba(0,0,0,0.25)]"
+                className="h-[5.75rem] w-auto object-contain object-bottom drop-shadow-[0_6px_12px_rgba(0,0,0,0.25)]"
               />
             </div>
-          </motion.div>
+          </div>
 
           <div className="min-w-0 flex-1">
             <p className="truncate text-[1.375rem] font-black leading-tight tracking-tight text-primary-foreground">
