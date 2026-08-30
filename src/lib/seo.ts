@@ -26,7 +26,7 @@ export const SITE = {
   shortDescription:
     "A calm, distraction-free study app for medical and science students.",
   logo: "/brand/biovision-logo.png",
-  icon: "/favicon.png",
+  icon: "/brand/biovision-logo.png",
   ogImage: "/og-image.jpg",
   ogImageWidth: 1200,
   ogImageHeight: 630,
